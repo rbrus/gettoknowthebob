@@ -1,2 +1,4 @@
 # gettoknowthebob
-The Bob - czyli system sterowania bobami (urządzeniami końcowymi) zamontowanymi w obiekcie czyli w moim mieszkaniu :)
+"The Bob" is an idea to create alternative wireless control system for commercial applications. 
+
+https://gettoknowthebob.wordpress.com/
