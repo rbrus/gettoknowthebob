@@ -2,13 +2,9 @@
 #include <SoftwareSerial.h>
 
 // OneWire DS18S20, DS18B20, DS1822 Temperature Example
-//
 // http://www.pjrc.com/teensy/td_libs_OneWire.html
-//
 // The DallasTemperature library can do all this work for you!
 // http://milesburton.com/Dallas_Temperature_Control_Library
-
-//////
 
 OneWire  ds(2);  // on pin 10 (a 4.7K resistor is necessary)
 SoftwareSerial esp8266(10, 11);
@@ -17,45 +13,32 @@ int n = 0;
 
 #define DEBUG true
 
-  //sendData("AT+RST\r\n", 2000, DEBUG); // reset module
-  //sendData("AT+CWMODE=1\r\n", 1000, DEBUG); // configure as access point
-  //sendData("AT+CIFSR\r\n", 1000, DEBUG); // get ip address
-  //sendData("AT+CIPMUX=1\r\n", 1000, DEBUG); // configure for multiple connections
-  //sendData("AT+CIPSERVER=1,80\r\n", 1000, DEBUG); // turn on server on port 80
-  
-     //"AT\r\n",
-     //"AT+RST\r\n",
-     //"AT+GMR\r\n",
-     //"AT+CWLAP\r\n",
-     //"AT+CWMODE=1\r\n"
-     //"AT+CWJAP=\"Fred\'s Network\",\"Leos12072014#\"\r\n",
-     //"AT+CIFSR\r\n",
-
+//sendData("AT+RST\r\n", 2000, DEBUG); // reset module
+//sendData("AT+CWMODE=1\r\n", 1000, DEBUG); // configure as access point
+//sendData("AT+CIFSR\r\n", 1000, DEBUG); // get ip address
+//sendData("AT+CIPMUX=1\r\n", 1000, DEBUG); // configure for multiple connections
+//sendData("AT+CIPSERVER=1,80\r\n", 1000, DEBUG); // turn on server on port 80
 
 void setup(void) {
   Serial.begin(9600);
   esp8266.begin(115200); // your esp's baud rate might be different
   
-  sendData("AT\r\n", 2000, DEBUG); // reset module
+  sendData("AT\r\n", 1000, DEBUG); // reset module
   sendData("AT+RST\r\n", 2000, DEBUG); // reset module
-  sendData("AT+GMR\r\n", 2000, DEBUG); // reset module
-  sendData("AT+CWLAP\r\n", 2000, DEBUG); // reset module
-  sendData("AT+CWMODE=1\r\n", 2000, DEBUG); // configure as access point
-  sendData("AT+CWJAP=\"Fred\'s Network\",\"Leos12072014#\"\r\n", 2000, DEBUG); // reset module
-  sendData("AT+CIFSR\r\n", 2000, DEBUG); // configure as access point
-  //sendData("AT+CIFSR\r\n", 1000, DEBUG); // get ip address
-  //sendData("AT+CIPMUX=1\r\n", 1000, DEBUG); // configure for multiple connections
-  //sendData("AT+CIPSERVER=1,80\r\n", 1000, DEBUG); // turn on server on port 80
+  //sendData("AT+GMR\r\n", 1000, DEBUG); // Show software and SDK version
+  //sendData("AT+CWLAP\r\n", 1000, DEBUG); // List dicovered ssid's
+  sendData("AT+CWMODE=1\r\n", 1000, DEBUG); // configure as access point
+  //sendData("AT+CWJAP=\"Fred's Network\",\"Leos12072014#\"\r\n", 2000, DEBUG); // reset module
+  sendData("AT+CIFSR\r\n", 1000, DEBUG); // get ip address
+  sendData("AT+CIPMUX=1\r\n", 1000, DEBUG); // configure for multiple connections
+  sendData("AT+CIPSERVER=1,80\r\n", 1000, DEBUG); // turn on server on port 80
 }
 
 
 void loop(void) {
 
-
   if (esp8266.available()) // check if the esp is sending a message
   {
-
-
     byte i;
     byte present = 0;
     byte type_s;
@@ -71,10 +54,8 @@ void loop(void) {
       return;
     }
 
-
     for ( i = 0; i < 8; i++) {
       addr[i];
-
     }
 
     if (OneWire::crc8(addr, 7) != addr[7]) {
@@ -180,16 +161,11 @@ void loop(void) {
 
 
       ///html
-
       webpage += "<html>\r\n";
-
       webpage += "<TITLE>SERVER WEB Arduino + ESP8266 </TITLE>";
-
-
       webpage += "<H1>\r\n";
       webpage += "SERVER WEB Arduino Nano + ESP8266  + DS18B20  PDA_Control "  ;
       webpage += "</H1>\r\n";
-
 
       webpage += "<H2>\r\n";
       webpage += "Refresh: " + dato  ;
@@ -204,8 +180,6 @@ void loop(void) {
       webpage += "</H2>\r\n";
 
 
-
-
       ///fin html
       webpage += "</html>\r\n";
 
@@ -217,8 +191,6 @@ void loop(void) {
       sendData(webpage, 500, DEBUG);
 
       sendData("AT+CIPCLOSE=0\r\n", 1500, DEBUG);
-
-
     }
 
   }
@@ -248,7 +220,6 @@ String sendData(String command, const int timeout, boolean debug)
   if (debug)
   {
     Serial.print(response);
-
   }
 
   return response;

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <list>
-#include </home/pi/wiringPi/wiringPi/wiringPi.h>
+#include <wiringPi.h>
 #include <wiringSerial.h>
 
 using namespace std;
@@ -15,9 +15,9 @@ int main()
         "AT\r\n",
         "AT+RST\r\n",
         "AT+GMR\r\n",
-        "AT+CWLAP\r\n",
         "AT+CWMODE=1\r\n"
-        "AT+CWJAP=\"Fred\'s Network\",\"Leos12072014#\"\r\n",
+        "AT+CWLAP\r\n",
+        //"AT+CWJAP=\"Fred\'s Network\",\"Leos12072014#\"\r\n",
         "AT+CIFSR\r\n"
     };
 
