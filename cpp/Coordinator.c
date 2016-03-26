@@ -17,7 +17,7 @@ int main()
         "AT+GMR\r\n",
         "AT+CWMODE=1\r\n"
         "AT+CWLAP\r\n",
-        //"AT+CWJAP=\"Fred\'s Network\",\"TestPasswordNumber2#\"\r\n",
+        //"AT+CWJAP=\"Fred\'s Network\",\"Leos12072014#\"\r\n",
         "AT+CIFSR\r\n"
     };
 
@@ -50,8 +50,10 @@ void sendCommand(int connectionId, char *command, int waitTime, bool debug)
     serialFlush(connectionId);
 
     if(debug)
+    {
+        cout << "----------------------------------" << endl;
         cout << "Command:" << command << endl << "Data: ";
-
+    }
     // send data
     serialPuts(connectionId, command);
 

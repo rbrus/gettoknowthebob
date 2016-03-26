@@ -11,7 +11,7 @@ namespace SerialPortMonitor
     {
         static void Main(string[] args)
         {
-            SerialPort serialPort = new SerialPort("COM3");
+            SerialPort serialPort = new SerialPort("COM4");
 
             serialPort.BaudRate = 9600;
             serialPort.Parity = Parity.None;
