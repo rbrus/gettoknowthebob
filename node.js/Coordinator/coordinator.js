@@ -1,17 +1,8 @@
-console.log("-- Begin");
-
-var list = [
-    "AT\r\n",
-    "AT+CWMODE=1\r\n",
-    "AT+CWLAP\r\n",
-    "AT+CWJAP=\"Fred\'s Network\",\"Leos12072014#\""
-];
-
-
-var start = 0;
-var allData;
-
-var SerialPort = require('serialport').SerialPort;
+    console.log("-- Begin");
+    var list = ["AT\r\n","AT+CWMODE=1\r\n","AT+CWLAP\r\n","AT+CWJAP=\"MyNetwork\",\"Password\""];
+    var start = 0;
+    var allData;
+    var SerialPort = require('serialport').SerialPort;
 
     var serialPort = new SerialPort('/dev/ttyAMA0', {
       baudrate: 115200,
@@ -56,8 +47,7 @@ var SerialPort = require('serialport').SerialPort;
               console.log('results ' + results);
             });
         }
-}
+    }
     });
-
-console.log("-- End");
+    console.log("-- End");
 
