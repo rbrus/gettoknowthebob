@@ -7,15 +7,20 @@ void sendCommand(int connectionId, char *command, int waitTime, bool debug);
 
 int main()
 {
-    std::list<char *> commandList;
-    
-    commandList.push_back("AT+RST\r\n");
-    commandList.push_back("AT+CWMODE=1\r\n");
-    commandList.push_back("AT+CWJAP=\"NetworkSSID\",\"Password\"\r\n");
-    commandList.push_back("AT+CIFSR\r\n");
+    std::list<char *> commandList = {
+        "AT+RST\r\n",
+        "AT+CWMODE=1\r\n",
+        "AT+CWJAP=\"TestSSID\",\"Test.Password#\"\r\n",
+        "AT+CIFSR\r\n",
+        "AT+CIPSTART=\"TCP\",\"192.168.4.1\",80\r\n",
+        "AT+CIPSEND=4\r\n",
+        "ABCD"
+    };
 
     wiringPiSetup();
     int connectionId = serialOpen("/dev/ttyAMA0", 115200);
+
+    cout << "Number of commands: " << commandList.size() << endl;
 
     // Send all commands from stack
     while(commandList.size() != 0)
@@ -25,8 +30,38 @@ int main()
         commandList.pop_front();
     }
 
-    string wait;
-    cin >> wait;
+    bool notClose = true;
+    int x = 0; //
+    char indata[8192];
+    while(notClose)
+    {
+        if(serialDataAvail(connectionId) > 0)
+        {
+            while(serialDataAvail(connectionId) > 0)
+            {
+                char c = (char)serialGetchar(connectionId);
+                cout << c;
+                indata[x] = c;
+                indata++;
+            }
+        }
+
+        if(x > 3)
+        {
+            if(indata[x - 1] == '\r' && indata[x] == '\n')
+            {
+                if(indata[x - 3] == 'O' && indata[x - 2] == 'K')
+                {
+
+                }
+
+                if(indata[x - 3] == 'O' && indata[x - 2] == 'R')
+                {
+
+                }
+            }
+        }
+    }
 
     serialClose(connectionId);
 
