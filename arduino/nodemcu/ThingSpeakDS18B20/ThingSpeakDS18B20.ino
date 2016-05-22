@@ -16,8 +16,6 @@ const char* ssid = "ssid";
 const char* password = "password";
 const char* server = "api.thingspeak.com";
 
-//int sent = 0;
-
 void setup() {
   Serial.begin(115200);
   delay(10);
@@ -32,20 +30,19 @@ void setup() {
   WiFi.begin(ssid, password);
   
   while (WiFi.status() != WL_CONNECTED) {
-  delay(500);
-  Serial.print(".");
+    delay(500);
+    Serial.print(".");
   }
   Serial.println("");
   Serial.println("WiFi Connected");
 }
 
 void loop() {
-  
   float temp;
   DS18B20.requestTemperatures(); 
   temp = DS18B20.getTempCByIndex(0);
   
-  if (client.connect(server,80)) { // "184.106.153.149" or api.thingspeak.com
+  if (client.connect(server,80)) {
     String postStr = apiKey;
     postStr +="&field1=";
     postStr += String(temp);
@@ -62,11 +59,10 @@ void loop() {
     client.print(postStr);
     
     Serial.print("Temperature: ");
-    Serial.print(temp);
-    Serial.println("% send to Thingspeak");
+    Serial.println(temp);
   }
   client.stop();
   
-  delay(20000); // 20sec delay between updates
+  delay(17000); // 17sec delay between updates
 }
 
